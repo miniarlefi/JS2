@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Fonctions JS - A à Z</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    section {
+      margin-bottom: 30px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    input, button {
+      margin-top: 5px;
+      margin-bottom: 10px;
+      display: block;
+      padding: 5px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Fonctions JavaScript – A à Z</h1>
+
+  <!-- Section reverseString -->
+  <section>
+    <h2>1. Inverser une chaîne</h2>
+    <input id="reverseInput" placeholder="Entrez une chaîne" />
+    <button onclick="testReverse()">Inverser</button>
+    <p id="reverseResult"></p>
+  </section>
+
+  <!-- Section countCharacters -->
+  <section>
+    <h2>2. Compter les caractères</h2>
+    <input id="countInput" placeholder="Entrez une chaîne" />
+    <button onclick="testCount()">Compter</button>
+    <p id="countResult"></p>
+  </section>
+
+  <!-- Section capitalizeWords -->
+  <section>
+    <h2>3. Mettre en majuscule chaque mot</h2>
+    <input id="capitalizeInput" placeholder="Entrez une phrase" />
+    <button onclick="testCapitalize()">Majuscules</button>
+    <p id="capitalizeResult"></p>
+  </section>
+
+  <!-- Section findMaxMin -->
+  <section>
+    <h2>4. Maximum et Minimum</h2>
+    <input id="arrayInput1" placeholder="Ex: 3,8,1,5" />
+    <button onclick="testMaxMin()">Trouver</button>
+    <p id="maxMinResult"></p>
+  </section>
+
+  <!-- Section sumArray -->
+  <section>
+    <h2>5. Somme des éléments</h2>
+    <input id="sumInput" placeholder="Ex: 1,2,3,4" />
+    <button onclick="testSum()">Additionner</button>
+    <p id="sumResult"></p>
+  </section>
+
+  <!-- Section filterArray -->
+  <section>
+    <h2>6. Filtrer les éléments > 3</h2>
+    <input id="filterInput" placeholder="Ex: 1,2,4,5" />
+    <button onclick="testFilter()">Filtrer</button>
+    <p id="filterResult"></p>
+  </section>
+
+  <!-- Section factorial -->
+  <section>
+    <h2>7. Factorielle</h2>
+    <input id="factorialInput" type="number" placeholder="Entrez un nombre" />
+    <button onclick="testFactorial()">Calculer</button>
+    <p id="factorialResult"></p>
+  </section>
+
+  <!-- Section isPrime -->
+  <section>
+    <h2>8. Est-ce un nombre premier ?</h2>
+    <input id="primeInput" type="number" placeholder="Entrez un nombre" />
+    <button onclick="testPrime()">Vérifier</button>
+    <p id="primeResult"></p>
+  </section>
+
+  <!-- Section Fibonacci -->
+  <section>
+    <h2>9. Suite de Fibonacci</h2>
+    <input id="fiboInput" type="number" placeholder="Nombre de termes" />
+    <button onclick="testFibonacci()">Générer</button>
+    <p id="fiboResult"></p>
+  </section>
+
+  <script>
+    // Fonctions de string
+    function reverseString(str) {
+      return str.split('').reverse().join('');
+    }
+
+    function countCharacters(str) {
+      return str.length;
+    }
+
+    function capitalizeWords(sentence) {
+      return sentence.split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+    }
+
+    // Fonctions sur les tableaux
+    function findMax(arr) {
+      return Math.max(...arr);
+    }
+
+    function findMin(arr) {
+      return Math.min(...arr);
+    }
+
+    function sumArray(arr) {
+      return arr.reduce((a, b) => a + b, 0);
+    }
+
+    function filterArray(arr, fn) {
+      return arr.filter(fn);
+    }
+
+    // Fonctions mathématiques
+    function factorial(n) {
+      if (n < 0) return undefined;
+      if (n === 0) return 1;
+      return n * factorial(n - 1);
+    }
+
+    function isPrime(n) {
+      if (n <= 1) return false;
+      for (let i = 2; i <= Math.sqrt(n); i++) {
+        if (n % i === 0) return false;
+      }
+      return true;
+    }
+
+    function fibonacciSequence(n) {
+      if (n <= 0) return [];
+      if (n === 1) return [0];
+      const seq = [0, 1];
+      for (let i = 2; i < n; i++) {
+        seq.push(seq[i - 1] + seq[i - 2]);
+      }
+      return seq;
+    }
+
+    // Tests
+    function testReverse() {
+      const val = document.getElementById("reverseInput").value;
+      document.getElementById("reverseResult").textContent = reverseString(val);
+    }
+
+    function testCount() {
+      const val = document.getElementById("countInput").value;
+      document.getElementById("countResult").textContent = countCharacters(val);
+    }
+
+    function testCapitalize() {
+      const val = document.getElementById("capitalizeInput").value;
+      document.getElementById("capitalizeResult").textContent = capitalizeWords(val);
+    }
+
+    function testMaxMin() {
+      const arr = document.getElementById("arrayInput1").value.split(',').map(Number);
+      const max = findMax(arr);
+      const min = findMin(arr);
+      document.getElementById("maxMinResult").textContent = `Max: ${max}, Min: ${min}`;
+    }
+
+    function testSum() {
+      const arr = document.getElementById("sumInput").value.split(',').map(Number);
+      document.getElementById("sumResult").textContent = sumArray(arr);
+    }
+
+    function testFilter() {
+      const arr = document.getElementById("filterInput").value.split(',').map(Number);
+      const result = filterArray(arr, n => n > 3);
+      document.getElementById("filterResult").textContent = result.join(', ');
+    }
+
+    function testFactorial() {
+      const n = parseInt(document.getElementById("factorialInput").value);
+      document.getElementById("factorialResult").textContent = factorial(n);
+    }
+
+    function testPrime() {
+      const n = parseInt(document.getElementById("primeInput").value);
+      document.getElementById("primeResult").textContent = isPrime(n) ? "Oui" : "Non";
+    }
+
+    function testFibonacci() {
+      const n = parseInt(document.getElementById("fiboInput").value);
+      document.getElementById("fiboResult").textContent = fibonacciSequence(n).join(', ');
+    }
+  </script>
+</body>
+</html>
